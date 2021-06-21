@@ -14,6 +14,8 @@ agent any
     steps {
 	sh 'mkdir -p creds'
     sh 'echo $google_key | base64 > ./creds/creds.json'
+	    
+	    sh 'more ./creds/creds.json'
 	}
 	}
 	  stage ('checkout') {
