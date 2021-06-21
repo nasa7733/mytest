@@ -1,5 +1,5 @@
 provider "google" {
-
+credentials = file (./creds/creds.json)
 project = "nasalab"
 region = "us-central1"
 
