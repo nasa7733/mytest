@@ -8,16 +8,3 @@ data "google_compute_instance" "appserver" {
   zone = "us-central1-a"
   machinetype = "f1-micro"
 }
- 
- boot_disk {
-    initialize_params {
-      image = "debian-cloud/debian-9"
-    }
-  }
-network_interface {
-
-network = "default"
-
-}
-
-}
