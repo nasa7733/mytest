@@ -1,13 +1,13 @@
 pipeline {
 	agent any 
 	environment {
-		GOOGLE-KEY = credential('google-auth')
+		SVC_KEY = credential('google-auth')
 	}
 	stages  {
 		stage ('crendtials') {
 			steps {
 				sh 'mkdir -p creds'
-				sh 'echo $GOOGLE-KEY | base64 > ./creds/creds.json'
+				sh 'echo $SVC_KEY | base64 > ./creds/creds.json'
 				sh 'more ./creds/creds.json'
 			}
 		}
