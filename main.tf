@@ -1,12 +1,14 @@
 provider "google" {
-  credentials = file ("./creds/creds.json")
   project = "nasalab-316914"
-  region = "us-central1"
+  region  = "us-central1"
+  zone    = "us-central1-a"
 }
-resource "google_compute_instance" "vm-instance" {
-  name = "test=vm"
+data "google_compute_instance" "appserver" {
+  name = "primary-application-server"
   zone = "us-central1-a"
   machinetype = "f1-micro"
+}
+ 
  boot_disk {
     initialize_params {
       image = "debian-cloud/debian-9"
@@ -18,4 +20,4 @@ network = "default"
 
 }
 
-)
+}
