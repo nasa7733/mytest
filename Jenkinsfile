@@ -13,7 +13,7 @@ Environment {
   stage ('crendtials') {
     steps {
 	sh 'mkdir -p creds'
-    sh 'echo $Google-key | base64 > ./creds/creds.json
+    sh 'echo $Google-key | base64 > ./creds/creds.json'
 	}
 	}
 	
