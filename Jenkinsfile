@@ -37,9 +37,11 @@ agent any
 	  }
 	  
 	 stage ('Build Infra'){
-	  sh 'terraform init'
-	  sh 'terraform plan'
-	  sh  'terraform apply -auto-approve'
+		 steps {
+		 		 sh 'terraform init'
+	 			 sh 'terraform plan'
+	 			 sh  'terraform apply -auto-approve'
+		 }
 	 }
 	  
 	}
