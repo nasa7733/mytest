@@ -22,7 +22,7 @@ Environment {
 	 steps {
 	 script {
 	  def tfHome = tool name : "terraform"
-	  ENV.PATH = ${tfHome}:${ENV.path}
+	  ENV.PATH = "${tfHome}:${ENV.path}"
 	  }
 	  sh 'terraform --version'
 	  }
