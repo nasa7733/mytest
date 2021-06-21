@@ -1,0 +1,33 @@
+pipeline {
+
+agents any 
+
+Environment {
+
+  Google_key = credential('google-auth')
+  
+  }
+  
+  stages  {
+  
+  stage ('crendtials') {
+  
+	sh 'mkdir -p creds'
+    sh 'echo $Google-key | base64 > ./creds/creds.json
+	}
+	
+	stage ('set path') {
+	 script {
+	  def tfHome = tool name : "terraform"
+	  ENV.PATH = ${tfHome}:${ENV.path}
+	  }
+	  }
+	  
+	 stage ('Build Infra'){
+	  sh 'terraform init'
+	  sh 'terraform plan'
+	  sh  'terraform apply -auto-approve
+	 
+	  
+	}
+	}
