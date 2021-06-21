@@ -2,18 +2,18 @@ pipeline {
 
 agent any 
 
-Environment {
+   Environment {
 
-  Google_key = credential('google-auth')
+        Google_key = credential('google-auth')
   
-  }
+               }
   
   stages  {
   
   stage ('crendtials') {
     steps {
 	sh 'mkdir -p creds'
-    sh 'echo $Google-key | base64 > ./creds/creds.json'
+    sh 'echo $Google_key | base64 > ./creds/creds.json'
 	}
 	}
 	
