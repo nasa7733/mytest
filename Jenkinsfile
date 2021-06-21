@@ -1,7 +1,7 @@
 pipeline {
 	agent any 
 	environment {
-		SVC_KEY = credential('google-auth')
+		SVC_KEY = credentials('google-auth')
 	}
 	stages  {
 		stage ('crendtials') {
