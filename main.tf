@@ -1,6 +1,6 @@
 provider "google" {
   credentials = file ("./creds/creds.json")
-  project = "nasalab"
+  project = "nasalab-316914"
   region = "us-central1"
 }
 resource "google_compute_instance" "vm-instance" {
