@@ -16,7 +16,12 @@ agent any
     sh 'echo $google_key | base64 > ./creds/creds.json'
 	}
 	}
-	
+	  stage ('checkout') {
+	  
+	  steps {
+	  git branch: 'master', url: 'https://github.com/nasa7733/mytest.git'
+	  }
+	  }
 	
 	stage ('set path') {
 	 steps {
@@ -29,12 +34,7 @@ agent any
 	  
 	  }
 	  
-	  stage ('checkout') {
-	  
-	  steps {
-	  git branch: 'master', url: 'https://github.com/nasa7733/mytest.git'
-	  }
-	  }
+	
 	  
 	 stage ('Build Infra'){
 		 steps {
