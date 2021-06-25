@@ -1,7 +1,7 @@
 pipeline {
 	agent any 
 	environment {
-		SVC_KEY = credentials('google-auth')
+		SVC_ACCOUNT_KEY = credentials('google-auth')
 	}
 	stages  {
 		stage ('checkout') {
@@ -20,11 +20,9 @@ pipeline {
 		}
 		stage ('crendtials') {
 			steps {
-				sh 'base64 --version'
 				sh 'mkdir -p creds'				
-				sh 'echo $SVC_KEY | base64 -d > ./creds/creds.json'
-		                sh 'pwd'
-                                sh 'terraform --version'      
+				sh 'echo $SVC_ACCOUNT_KEY | base64 -d > ./creds/creds.json'
+		                
 			}
 		}
 		
