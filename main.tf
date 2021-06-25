@@ -1,6 +1,6 @@
 provider "google" {
   project = "nasalab-316914"
-  credentials = file('creds.json')
+  credentials = file("creds.json")
   region  = "us-central1"
   zone    = "us-central1-a"
 }
