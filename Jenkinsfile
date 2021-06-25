@@ -7,6 +7,7 @@ pipeline {
 		stage ('crendtials') {
 			steps {
 				sh 'mkdir -p creds'
+				sh 'echo $SVC_KEY'
 				sh 'echo $SVC_KEY  > ./creds/creds.json'
 				sh 'more ./creds/creds.json'
 			}
