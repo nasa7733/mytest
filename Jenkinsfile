@@ -20,6 +20,7 @@ pipeline {
 		}
 		stage ('crendtials') {
 			steps {
+				sh 'base64 --version'
 				sh 'mkdir -p creds'				
 				sh 'echo $SVC_KEY | base64 -d > ./creds/creds.json'
 		                sh 'pwd'
