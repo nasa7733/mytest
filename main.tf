@@ -1,10 +1,29 @@
 provider "google" {
-  project = "nasalab-316914"
+ 
+  project = "nasa7733-lab"
   credentials = file("./creds/creds.json")
   region  = "us-central1"
-  zone    = "us-central1-a"
+
+  
 }
-data "google_compute_instance" "vm-instance" {
-  name = "test-vm"
-  zone = "us-central1-a"
+
+resource "google_compute_instance" "vm-instance" {
+  name         = "test"
+  machine_type = "f1-micro"
+  zone    = "us-central1-a"
+
+
+  boot_disk {
+    initialize_params {
+      image = "debian-cloud/debian-9"
+    }
+  }
+    
+  network_interface {
+    network = "default"
+
+    access_config {
+      // Ephemeral IP
+    }
+  }
 }
