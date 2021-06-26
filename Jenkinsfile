@@ -21,8 +21,7 @@ pipeline {
 		stage ('crendtials') {
 			steps {
 				sh 'mkdir -p creds'	
-				
-				sh 'echo $SVC_ACCOUNT_KEY | base64 -d > ./creds/creds.json'
+				sh 'echo "$SVC_ACCOUNT_KEY" | base64 -d > ./creds/creds.json'
 		                sh 'terraform --version'
 			}
 		}
