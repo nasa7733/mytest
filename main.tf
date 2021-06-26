@@ -8,8 +8,7 @@ provider "google" {
 
 resource "google_compute_instance" "vm-instance" {
   count = 2
-  name         = "test-vm-central1-b"
-  name   = = "test-vm-central1-a"
+  name    = "test-vm-central1-b"
   machine_type = "f1-micro"
   zone    = "us-central1-b"
 
