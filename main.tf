@@ -7,28 +7,11 @@ provider "google" {
 }
 
 resource "google_compute_instance" "vm-instance" {
+  count = 2
   name         = "test-vm-central1-b"
+  name   = = "test-vm-central1-a"
   machine_type = "f1-micro"
   zone    = "us-central1-b"
-
-
-  boot_disk {
-    initialize_params {
-      image = "debian-cloud/debian-9"
-    }
-  }
-    
-  network_interface {
-    network = "default"
-
-    access_config {
-      // Ephemeral IP
-    }
-  }
-  resource "google_compute_instance" "vm-instance" {
-  name         = "test-vm-central-a"
-  machine_type = "f1-micro"
-  zone    = "us-central1-a"
 
 
   boot_disk {
