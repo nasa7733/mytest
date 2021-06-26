@@ -2,7 +2,7 @@ provider "google" {
  
   project = "nasalab"
   credentials = file("./creds/creds.json")
-  region  = "us-central1"
+  region  = "us-east1"
 
   
 }
@@ -10,7 +10,7 @@ provider "google" {
 resource "google_compute_instance" "vm-instance" {
   name         = "test"
   machine_type = "f1-micro"
-  zone    = "us-central1-a"
+  zone    = "us-east1-b"
 
 
   boot_disk {
