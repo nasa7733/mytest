@@ -1,10 +1,4 @@
-provider "google" {
-  project = "nasalab-316914"
-  credentials = file("./creds/creds.json")
-  region  = "us-central1"
 
-  
-}
 
 resource "google_compute_instance" "default" {
   name    = "test-vm-central1-c"
