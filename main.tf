@@ -8,7 +8,7 @@ provider "google" {
 
 resource "google_compute_instance" "vm-instance" {
   count = 2
-  name    = ["test-vm-central1-b","test-vm-central-a"] 
+  name    = "test-vm-central1-b","test-vm-central-a"
   machine_type = "f1-micro"
   zone    = "us-central1-b"
 
