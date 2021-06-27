@@ -32,7 +32,8 @@ pipeline {
 			steps {
 				sh 'terraform init'
 	 			sh 'terraform plan'
-	 		        sh 'terraform destroy -auto-approve'
+				sh 'terraform apply -auto-approve'                 // used for terraform apply ---> Builds/modify the Infra
+	 		   //     sh 'terraform destroy -auto-approve'              //used for terrform destroy --> Destroy the Infrastructure
 			}
 		}
 	}
