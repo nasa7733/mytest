@@ -2,6 +2,6 @@ terraform {
   backend "gcs" {
     bucket = "nasalab-bucket"
     prefix  = "terraform/state"
-    credentials = "creds.json"
+    credentials = "./creds/creds.json"
   }
 }
