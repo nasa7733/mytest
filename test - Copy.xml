@@ -1,0 +1,105 @@
+[200~pipeline {
+
+
+agent any 
+##NASA has updated the file. I have updated again
+environment {
+  Google_key = credentials('terraform-auth')
+  }
+  stages {  
+	stage ('credential') {
+	 steps {
+	    sh 'mkdir -p creds'
+		sh 'echo $Google_key | base64 -d > ./creds/creds.json'
+		}
+		}
+    stage ('SA Account creation') {
+		steps  {
+		sh 'gcloud auth activate-service-account terraform@midevop.iam.gserviceaccount.com --key-file=./creds/creds.json'
+		sh 'gcloud config set project $NEW_PROJECT
+		sh 'gcloud iam service-accounts create $SA_ACCOUNT   --description="image_user" --display-name="Image_user"'
+		sh 'gcloud projects add-iam-policy-binding $PROJECT_ID  --member="serviceAccount:$SA_ACCOUNT@$PROJECT_ID.iam.gserviceaccount.com"  \ --role="$ROLE_NAME"'
+		}
+		}
+		
+	stage ('create instance template') {
+	 steps {
+	 
+	 sh 'gcloud compute instance-templates create nginx-lb-template --metadata-from-file startup-script=./startup/startup.sh --tags=http-server'
+	 sh 'sleep 1'
+	 
+	 }
+	}
+	
+	stage ('Create a target pool') {
+		steps {
+		 
+	  sh 'gcloud compute target-pools create nginx-lb-pool --region us-central1'
+		 sh 'sleep 1'
+		
+		}
+	}
+	
+	stage ('Create MIG and add instances to targetpool') {
+	steps{
+	sh '(gcloud compute instance-groups managed create nginx-lb-group --base-instance-name nginx --size 2 --template nginx-lb-template --target-pool nginx-lb-pool --region us-central1)'
+	sh 'sleep 180'
+	}
+	}
+	
+	stage ('Instances List') {
+	steps {
+	sh 'gcloud compute instances list'
+	}
+	}
+	
+	stage ('HTTP Firewall') {
+	steps {
+   sh 'gcloud compute firewall-rules create allow-lb-fw-http --allow tcp:80'	
+   sh 'sleep 1'
+
+	}
+	}
+	
+	
+//stage ('Static IP') {
+	// steps {
+	    
+//		sh 'gcloud compute addresses create lbip1 --region=us-central1'
+	//	sh 'gcloud compute addresses list' 
+	//	sh 'gcloud compute addresses list --format="value(selfLink.basename())" '
+	//	sh 'gcloud compute addresses list --format="value(selfLink.scope(RANGE))" '
+		sh 'gcloud compute addresses list --format="value(ADDRESS)" > IP.txt'
+	//	}
+	//	}
+	
+	stage('CREATE HTTP LB'){
+	steps{
+	
+	sh 'gcloud compute forwarding-rules create nginx-lb --region us-central1 --ports=80 --target-pool nginx-lb-pool --address=STATIC_IP'
+
+	sh 'sleep 120'
+	}
+	}
+	
+   stage ('Forwarding Rules list') {
+   
+   steps {
+	sh 'gcloud compute forwarding-rules list'	
+   } 
+   }
+   
+   stage ('TEST THE Application'){
+   steps {
+     //sh 'curl http://www.google.com'
+     sh 'curl http://STATIC_IP'
+   
+   }
+   }
+  }
+  
+  }
+  
+  
+  
+":
