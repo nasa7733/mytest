@@ -15,5 +15,8 @@ steps:
 
 - script: |
     echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
+    sudo apt update
+    sudo apt install mailutils
+    echo "This is the body of the email" | mail -s "Subject of the email" nasa7733@gmail.com
+
   displayName: 'Run a multi-line script'
